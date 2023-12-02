@@ -14,5 +14,8 @@ namespace OpenAiApi.Database.Models
 
         [StringLength(2000)]
         public string Message {  get; set; }
+
+        [StringLength(2000)]
+        public string AssistantMessage {  get; set; }
     }
 }
