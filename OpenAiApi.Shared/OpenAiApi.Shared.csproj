@@ -1,7 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
+    <RuntimeIdentifier>linux-arm64</RuntimeIdentifier>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>disable</Nullable>
   </PropertyGroup>
@@ -9,7 +10,7 @@
   <ItemGroup>
     <PackageReference Include="AsbtCore.UtilsV2" Version="2.0.82" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="6.0.9" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.14" />
   </ItemGroup>
 
   <ItemGroup>
