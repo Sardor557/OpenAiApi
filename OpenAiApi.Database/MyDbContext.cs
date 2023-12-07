@@ -12,6 +12,7 @@ namespace OpenAiApi.Database
     {
 
         #region dbSet
+        public DbSet<tbAssistantMessage> tbAssistantMessages { get; set; }
         public DbSet<tbTelegramUser> tbTelegramUsers { get; set; }
         public DbSet<tbTelegramUserMessage> tbTelegramUserMessages { get; set; }
         public DbSet<tbUser> tbUsers { get; set; }

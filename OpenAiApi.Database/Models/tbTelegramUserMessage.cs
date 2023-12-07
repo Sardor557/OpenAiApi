@@ -13,6 +13,6 @@ namespace OpenAiApi.Database.Models
         public virtual tbTelegramUser TelegramUser { get; set; }
 
         [StringLength(2000)]
-        public string Message {  get; set; }
+        public string Message {  get; set; }        
     }
 }
