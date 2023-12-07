@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OpenAiApi.Database;
@@ -11,9 +12,11 @@ using OpenAiApi.Database;
 namespace OpenAiApi.Database.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231202050258_db2")]
+    partial class db2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,57 +24,6 @@ namespace OpenAiApi.Database.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("OpenAiApi.Database.Models.tbAssistantMessage", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasColumnName("id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<long>("Id"));
-
-                    b.Property<DateTime>("CreateDate")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("create_date");
-
-                    b.Property<int>("CreateUser")
-                        .HasColumnType("integer")
-                        .HasColumnName("create_user");
-
-                    b.Property<string>("Message")
-                        .HasMaxLength(10000)
-                        .HasColumnType("character varying(10000)")
-                        .HasColumnName("message");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("integer")
-                        .HasColumnName("status");
-
-                    b.Property<long>("TelegramUserMessage")
-                        .HasColumnType("bigint")
-                        .HasColumnName("telegram_user_message");
-
-                    b.Property<long?>("TelegramUserMessageIdId")
-                        .HasColumnType("bigint")
-                        .HasColumnName("telegram_user_message_id_id");
-
-                    b.Property<DateTime?>("UpdateDate")
-                        .HasColumnType("timestamp without time zone")
-                        .HasColumnName("update_date");
-
-                    b.Property<int?>("UpdateUser")
-                        .HasColumnType("integer")
-                        .HasColumnName("update_user");
-
-                    b.HasKey("Id")
-                        .HasName("pk_tb_assistant_messages");
-
-                    b.HasIndex("TelegramUserMessageIdId")
-                        .HasDatabaseName("ix_tb_assistant_messages_telegram_user_message_id_id");
-
-                    b.ToTable("tb_assistant_messages", (string)null);
-                });
 
             modelBuilder.Entity("OpenAiApi.Database.Models.tbTelegramUser", b =>
                 {
@@ -234,23 +186,12 @@ namespace OpenAiApi.Database.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2023, 12, 1, 14, 30, 44, 481, DateTimeKind.Local).AddTicks(3088),
+                            CreateDate = new DateTime(2023, 12, 2, 10, 2, 58, 386, DateTimeKind.Local).AddTicks(5318),
                             CreateUser = 1,
                             Login = "Admin",
                             Password = "bf6e55cd42d6d5dedfafcdd05ba5d8b8",
                             Status = 1
                         });
-                });
-
-            modelBuilder.Entity("OpenAiApi.Database.Models.tbAssistantMessage", b =>
-                {
-                    b.HasOne("OpenAiApi.Database.Models.tbTelegramUserMessage", "TelegramUserMessageId")
-                        .WithMany()
-                        .HasForeignKey("TelegramUserMessageIdId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .HasConstraintName("fk_tb_assistant_messages_tb_telegram_user_messages_telegram_use");
-
-                    b.Navigation("TelegramUserMessageId");
                 });
 
             modelBuilder.Entity("OpenAiApi.Database.Models.tbTelegramUserMessage", b =>
