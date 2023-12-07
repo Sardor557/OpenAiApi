@@ -9,8 +9,8 @@ namespace OpenAiApi.Database.Models
         [Key, DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public long Id { get; set; }
 
-        public long TelegramUserMessage {  get; set; }
-        public virtual tbTelegramUserMessage TelegramUserMessageId { get; set; }
+        public long TelegramUserMessageId {  get; set; }
+        public virtual tbTelegramUserMessage TelegramUserMessage { get; set; }
 
         [StringLength(10000)]
         public string Message { get; set; }

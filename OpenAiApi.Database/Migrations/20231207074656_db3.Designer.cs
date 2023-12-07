@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using OpenAiApi.Database;
@@ -11,9 +12,11 @@ using OpenAiApi.Database;
 namespace OpenAiApi.Database.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    partial class MyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231207074656_db3")]
+    partial class db3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -48,9 +51,13 @@ namespace OpenAiApi.Database.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("status");
 
-                    b.Property<long>("TelegramUserMessageId")
+                    b.Property<long>("TelegramUserMessage")
                         .HasColumnType("bigint")
-                        .HasColumnName("telegram_user_message_id");
+                        .HasColumnName("telegram_user_message");
+
+                    b.Property<long?>("TelegramUserMessageIdId")
+                        .HasColumnType("bigint")
+                        .HasColumnName("telegram_user_message_id_id");
 
                     b.Property<DateTime?>("UpdateDate")
                         .HasColumnType("timestamp without time zone")
@@ -63,8 +70,8 @@ namespace OpenAiApi.Database.Migrations
                     b.HasKey("Id")
                         .HasName("pk_tb_assistant_messages");
 
-                    b.HasIndex("TelegramUserMessageId")
-                        .HasDatabaseName("ix_tb_assistant_messages_telegram_user_message_id");
+                    b.HasIndex("TelegramUserMessageIdId")
+                        .HasDatabaseName("ix_tb_assistant_messages_telegram_user_message_id_id");
 
                     b.ToTable("tb_assistant_messages", (string)null);
                 });
@@ -230,7 +237,7 @@ namespace OpenAiApi.Database.Migrations
                         new
                         {
                             Id = 1,
-                            CreateDate = new DateTime(2023, 12, 7, 12, 51, 5, 125, DateTimeKind.Local).AddTicks(7469),
+                            CreateDate = new DateTime(2023, 12, 7, 12, 46, 55, 984, DateTimeKind.Local).AddTicks(9140),
                             CreateUser = 1,
                             Login = "Admin",
                             Password = "bf6e55cd42d6d5dedfafcdd05ba5d8b8",
@@ -240,14 +247,13 @@ namespace OpenAiApi.Database.Migrations
 
             modelBuilder.Entity("OpenAiApi.Database.Models.tbAssistantMessage", b =>
                 {
-                    b.HasOne("OpenAiApi.Database.Models.tbTelegramUserMessage", "TelegramUserMessage")
+                    b.HasOne("OpenAiApi.Database.Models.tbTelegramUserMessage", "TelegramUserMessageId")
                         .WithMany()
-                        .HasForeignKey("TelegramUserMessageId")
+                        .HasForeignKey("TelegramUserMessageIdId")
                         .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired()
-                        .HasConstraintName("fk_tb_assistant_messages_tb_telegram_user_messages_telegram_us");
+                        .HasConstraintName("fk_tb_assistant_messages_tb_telegram_user_messages_telegram_use");
 
-                    b.Navigation("TelegramUserMessage");
+                    b.Navigation("TelegramUserMessageId");
                 });
 
             modelBuilder.Entity("OpenAiApi.Database.Models.tbTelegramUserMessage", b =>
